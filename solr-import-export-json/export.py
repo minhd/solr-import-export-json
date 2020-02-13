@@ -1,24 +1,15 @@
 import fnmatch
 import json
 import logging
+import logging.config
 import os
 import re
 import sys
 from pprint import pprint
 from urllib.parse import urlencode
-
 import click
 import urllib3
-
-# setup logging
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+logger = logging.getLogger('default')
 
 
 @click.command()
@@ -32,7 +23,7 @@ def solr_export(solr_url, file_path, rows, exclude_pattern, debug):
     Export solr collection to a file
     """
     if debug:
-        handler.setLevel(logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
 
     f = open(file_path, "w+")
     http = urllib3.PoolManager()
@@ -118,4 +109,7 @@ def match(string, pattern):
 
 
 if __name__ == '__main__':
+    ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    CONFIG_PATH = os.path.join(ROOT_DIR, 'logging.conf')
+    logging.config.fileConfig(CONFIG_PATH)
     solr_export()
