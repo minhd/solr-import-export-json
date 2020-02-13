@@ -1,7 +1,7 @@
 import logging.config
 import os
 
-logger = logging.getLogger('default')
+logger = logging.getLogger()
 
 
 def solr_import():

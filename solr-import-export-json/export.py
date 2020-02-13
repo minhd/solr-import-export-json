@@ -9,7 +9,8 @@ from pprint import pprint
 from urllib.parse import urlencode
 import click
 import urllib3
-logger = logging.getLogger('default')
+
+logger = logging.getLogger()
 
 
 @click.command()
@@ -25,7 +26,12 @@ def solr_export(solr_url, file_path, rows, exclude_pattern, debug):
     if debug:
         logger.setLevel(logging.DEBUG)
 
+    logger.debug("Deleting %s", file_path)
+    os.remove(file_path)
+
+    logger.debug("Opening %s for writing", file_path)
     f = open(file_path, "w+")
+
     http = urllib3.PoolManager()
     cursor = "*"
     sort = 'id asc'
