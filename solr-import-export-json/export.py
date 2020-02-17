@@ -1,7 +1,7 @@
 import fnmatch
 import json
 import logging
-import logging.config
+from logging import config
 import os
 import re
 import sys
@@ -26,8 +26,8 @@ def solr_export(solr_url, file_path, rows, exclude_pattern, debug):
     if debug:
         logger.setLevel(logging.DEBUG)
 
-    logger.debug("Deleting %s", file_path)
-    os.remove(file_path)
+    #logger.debug("Deleting %s", file_path)
+    #os.remove(file_path)
 
     logger.debug("Opening %s for writing", file_path)
     f = open(file_path, "w+")
@@ -113,7 +113,7 @@ def match(string, pattern):
             return True
     return False
 
-
+# pylint: disable=no-value-for-parameter
 if __name__ == '__main__':
     ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     CONFIG_PATH = os.path.join(ROOT_DIR, 'logging.conf')
