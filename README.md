@@ -1,4 +1,6 @@
 # solr-import-export-json
+![Python application](https://github.com/minhd/solr-import-export-json/workflows/Python%20application/badge.svg?branch=master)
+
 A tool to import and export json documents from Apache SOLR
 
 ## Requirements
